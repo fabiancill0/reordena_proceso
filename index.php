@@ -43,7 +43,7 @@ $functions = new Functions();
     <div class="container-fluid mt-3">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Vaciado lotes orden de proceso</h3>
+                <h3 class="text-center">Reordena lotes en orden de proceso</h3>
             </div>
             <div class="card-body">
                 <div class="row justify-content-center">
