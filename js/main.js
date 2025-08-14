@@ -76,46 +76,53 @@ $(document).ready(function () {
 });
 function actualizar() {
     if (confirm('Actualizando orden de proceso, continuar?')) {
-        var proceso = $('#proceso').val();
-        var cliente = $('#cliente').val();
-        var newO = document.querySelector('#deta_new_orden');
-        var items = [...newO.getElementsByTagName('input')];
-        var lotes = [...newO.getElementsByTagName('p')];
-        var nuevoOrden = []
-        items.forEach(function (e, i) {
-            nuevoOrden.push({ lote: parseInt(lotes[i].innerHTML), orden: parseInt(e.value) })
-        })
-        $.ajax({
-            type: "POST",
-            url: "./data/actualizar_orden.php",
-            data: {
-                proceso: proceso,
-                cliente: cliente,
-                nuevoOrden: JSON.stringify(nuevoOrden)
-            },
-            dataType: "json",
-            beforeSend: function () {
-                $('#prod').html('<div class="d-flex justify-content-center mt-3"><div class="spinner-border" role="status"></div></div>');
-                $('#info').hide();
-                $('#deta_orden').html('');
-                $('#deta_new_orden').html('');
-            },
-            success: function (responseDel) {
-                if (responseDel.error == 'si') {
-                    alert(responseDel.message);
-                } else {
-                    $('#info').show();
-                    $('#prod').load('./data/productor.php', { proceso: proceso, cliente: cliente });
-                    $('#deta_orden').load('./data/detalle_proceso.php', { proceso: proceso, cliente: cliente });
-                    alert(responseDel.message);
+        var oldO = document.querySelector('#deta_orden');
+        var oldItems = [...oldO.getElementsByTagName('input')];
+        if (oldItems.length != 0) {
+            alert('Favor cambiar todos los lotes antes de actualizar');
+        } else {
+            var proceso = $('#proceso').val();
+            var cliente = $('#cliente').val();
+            var newO = document.querySelector('#deta_new_orden');
+            var items = [...newO.getElementsByTagName('input')];
+            var lotes = [...newO.getElementsByTagName('p')];
+            var nuevoOrden = []
+            items.forEach(function (e, i) {
+                nuevoOrden.push({ lote: parseInt(lotes[i].innerHTML), orden: parseInt(e.value) })
+            })
+            $.ajax({
+                type: "POST",
+                url: "./data/actualizar_orden.php",
+                data: {
+                    proceso: proceso,
+                    cliente: cliente,
+                    nuevoOrden: JSON.stringify(nuevoOrden)
+                },
+                dataType: "json",
+                beforeSend: function () {
+                    $('#prod').html('<div class="d-flex justify-content-center mt-3"><div class="spinner-border" role="status"></div></div>');
+                    $('#info').hide();
+                    $('#deta_orden').html('');
+                    $('#deta_new_orden').html('');
+                },
+                success: function (responseDel) {
+                    if (responseDel.error == 'si') {
+                        alert(responseDel.message);
+                    } else {
+                        $('#info').show();
+                        $('#prod').load('./data/productor.php', { proceso: proceso, cliente: cliente });
+                        $('#deta_orden').load('./data/detalle_proceso.php', { proceso: proceso, cliente: cliente });
+                        alert(responseDel.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error en la solicitud:", status, error);
+                    console.error("Detalles de la respuesta:", xhr.responseText);
+                    alert('Error al procesar la solicitud' + xhr.responseText);
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error en la solicitud:", status, error);
-                console.error("Detalles de la respuesta:", xhr.responseText);
-                alert('Error al procesar la solicitud' + xhr.responseText);
-            }
-        });
+            });
+        }
+
     } else {
         alert('No se actualizó la orden.');
     }
