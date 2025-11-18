@@ -10,7 +10,11 @@ $functions = new Functions();
 $cliente = $_POST['cliente'];
 $proceso = $_POST['proceso'];
 
-$connnect = $conn->connectToServ();
+if ($cliente == 15) {
+    $connnect = $conn->connectToRK();
+} else {
+    $connnect = $conn->connectToServ();
+}
 $lotesDetalle = json_decode($functions->getLotesProceso($connnect, $cliente, $proceso));
 if ($lotesDetalle[0]->error) {
     echo "<script>alert('No se encontró el número de traspaso para el cliente y proceso especificados.');</script>";

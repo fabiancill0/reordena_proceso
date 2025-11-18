@@ -9,8 +9,12 @@ $functions = new Functions();
 
 $cliente = $_POST['cliente'];
 $proceso = $_POST['proceso'];
+if ($cliente == 15) {
+    $connnect = $conn->connectToRK();
+} else {
+    $connnect = $conn->connectToServ();
+}
 $nuevoOrden = json_decode($_POST['nuevoOrden'], true);
-$connnect = $conn->connectToServ();
 $procesoDetalle = json_decode($functions->getProcesoDetalle($connnect, $cliente, $proceso));
 if ($procesoDetalle[0]->error) {
     echo json_encode(['error' => 'si', 'message' => 'No se encuentra información relativa a la orden de proceso']);
