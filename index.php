@@ -24,7 +24,7 @@ $functions = new Functions();
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
         crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="js/main.js?<?= md5(time()) ?>"></script>
     <style>
         .draggable {
@@ -43,7 +43,7 @@ $functions = new Functions();
     <div class="container-fluid mt-3">
         <div class="card">
             <div class="card-header">
-                <a style="position:absolute; z-index: 100" href="http://190.196.68.187/app_hub"><button class="btn btn-primary btn-lg" type="button" id="button-addon1"><i class="d-flex material-symbols-outlined align-items-center justify-content-center">home</i></button></a>
+                <a style="position:absolute; z-index: 100" href="http://190.196.68.187/app_hub"><button class="btn btn-primary btn-lg" type="button" id="button-addon1"><i class="bi bi-house"></i></button></a>
                 <h3 class="text-center mb-3">Reordena lotes en orden de proceso</h3>
             </div>
             <div class="card-body">
@@ -125,7 +125,7 @@ $functions = new Functions();
         <br>
         <div class="container-fluid" id="act" style="display:none">
             <div class="d-flex col-12 justify-content-center fixed-bottom">
-                <button onclick="actualizar()" class="d-flex justify-content-center btn btn-success col-12"><i class="d-flex material-symbols-outlined align-items-center justify-content-center">autorenew</i> Actualizar Orden</button>
+                <button onclick="actualizar()" class="btn btn-success col-12"><i class="bi bi-arrow-repeat"></i> Actualizar Orden</button>
             </div>
         </div>
     </div>
